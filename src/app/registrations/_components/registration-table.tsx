@@ -23,7 +23,7 @@ const RegistrationTable = ({ registrations }: RegistrationTableProps) => {
   });
 
   return (
-    <Table className="text-[0.7rem]">
+    <Table className="text-sm">
       <TableCaption>
         {filtered.length} of {data.length}
       </TableCaption>

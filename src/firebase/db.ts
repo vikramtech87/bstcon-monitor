@@ -5,6 +5,7 @@ import { TransactionData } from "@/lib/types/transaction-data";
 import { WorkshopData } from "@/lib/types/workshop-data";
 import { MealData } from "@/lib/types/meal-data";
 import { RegistrationData } from "@/lib/types/registration-data";
+import { FinanceData } from "@/lib/types/finance-data";
 
 async function getAllItems<T>(
   collectionName: string,
@@ -88,4 +89,23 @@ export async function getRegistrations() {
   }
 
   return registrations;
+}
+
+export async function getFinances() {
+  const finances: Record<string, FinanceData> = {};
+
+  const profiles = await getProfiles();
+  for (const profile of profiles) {
+    finances[profile.userId] = {
+      profile,
+      transactions: [],
+    };
+  }
+
+  const transactions = await getTransactions();
+  for (const transaction of transactions) {
+    finances[transaction.userId].transactions.push(transaction);
+  }
+
+  return finances;
 }
