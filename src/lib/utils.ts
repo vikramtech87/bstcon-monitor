@@ -25,3 +25,10 @@ export function summarize(transactions: TransactionData[]): {
     failure,
   };
 }
+
+export const toAmount = (value: number) =>
+  value.toLocaleString("en-IN", {
+    maximumFractionDigits: 2,
+    style: "currency",
+    currency: "INR",
+  });

@@ -1,5 +1,6 @@
 import { TableCell, TableRow } from "@/components/ui/table";
 import { FinanceData } from "@/lib/types/finance-data";
+import { toAmount } from "@/lib/utils";
 
 type FinanceTableRowProps = {
   finance: FinanceData;
@@ -19,6 +20,10 @@ const FinanceTableRow = ({ finance }: FinanceTableRowProps) => {
     (transaction) => transaction.transactionStatus !== "SUCCESS"
   );
 
+  const total = successful.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue.amount;
+  }, 0);
+
   return (
     <TableRow>
       <TableCell>{name}</TableCell>
@@ -36,6 +41,7 @@ const FinanceTableRow = ({ finance }: FinanceTableRowProps) => {
           ))}
         </ul>
       </TableCell>
+      <TableCell className="text-right">{toAmount(total)}</TableCell>
     </TableRow>
   );
 };
