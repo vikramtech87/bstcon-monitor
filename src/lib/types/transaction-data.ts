@@ -5,11 +5,11 @@ export type TransactionData = {
   authId?: string;
   bankId?: string;
   createdAt: Timestamp;
-  mode: string;
+  mode: "HDFC" | "PAYU";
   registrationNumber: string;
   result?: string;
   transactionId: string;
-  transactionStatus: "SUCCESS" | "FAILURE";
+  transactionStatus: "SUCCESS" | "FAILURE" | "INITIATED";
   updatedAt: Timestamp;
   userId: string;
 };

@@ -1,6 +1,6 @@
 import { ProfileData } from "@/lib/types/profile-data";
 import { db } from "./server";
-import { DocumentData } from "firebase-admin/firestore";
+import { DocumentData, Timestamp } from "firebase-admin/firestore";
 import { TransactionData } from "@/lib/types/transaction-data";
 import { WorkshopData } from "@/lib/types/workshop-data";
 import { MealData } from "@/lib/types/meal-data";
@@ -89,6 +89,45 @@ export async function getRegistrations() {
   }
 
   return registrations;
+}
+
+export async function getFailedTransactions() {
+  const collectionRef = db.collection("transactions");
+  const queryRef = collectionRef.where("transactionStatus", "!=", "SUCCESS");
+  const snapshot = await queryRef.get();
+
+  const items: TransactionData[] = [];
+
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+    const item = data as TransactionData;
+    items.push(item);
+  });
+
+  return items;
+}
+
+export async function cancelInitiatedTransaction(transactionId: string) {
+  const collectionRef = db.collection("transactions");
+  const queryRef = collectionRef.where("transactionId", "==", transactionId);
+
+  const snapshot = await queryRef.get();
+  const docs = snapshot.docs;
+  if (docs.length === 0) {
+    console.log("Document not found...");
+    return;
+  }
+  const doc = docs[0];
+  await doc.ref.set(
+    {
+      transactionStatus: "FAILURE",
+      updatedAt: Timestamp.now(),
+    },
+    { merge: true }
+  );
+  console.log(
+    `Document with transactionId: ${transactionId} updated to FAILURE`
+  );
 }
 
 export async function getFinances() {

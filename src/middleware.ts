@@ -2,7 +2,7 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 const isPublicRoute = createRouteMatcher(["/sign-in(.*)", "/sign-up(.*)"]);
 const isRegistrations = createRouteMatcher(["/registrations"]);
-const isFinance = createRouteMatcher(["/finance"]);
+const isFinance = createRouteMatcher(["/finance(.*)"]);
 
 export default clerkMiddleware((auth, req) => {
   const role = auth().sessionClaims?.metadata.role;
