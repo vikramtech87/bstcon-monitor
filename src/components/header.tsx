@@ -50,7 +50,7 @@ const Header = ({ userRole }: HeaderProps) => {
           <div className="flex items-center text-sm">
             <SignedOut>
               <SignInButton>
-                <Button variant="outline" size="sm">
+                <Button size="sm" variant="secondary">
                   Sign In
                 </Button>
               </SignInButton>

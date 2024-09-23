@@ -35,7 +35,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ClerkProvider>
-          <div className="flex flex-col justify-between h-screen">
+          <div className="flex flex-col justify-between h-screen space-y-12">
             <div className="flex flex-col space-y-12">
               <Header userRole={role} />
               <main>{children}</main>
