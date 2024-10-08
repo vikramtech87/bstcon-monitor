@@ -7,45 +7,45 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { RegistrationData } from "@/lib/types/registration-data";
-import { summarize } from "@/lib/utils";
 import RegistrationTableRow from "./registration-table-row";
 
 type RegistrationTableProps = {
-  registrations: Record<string, RegistrationData>;
+  registrations: RegistrationData[];
+  totalRegistrations: number;
+  filteredRegistrations: number;
 };
 
-const RegistrationTable = ({ registrations }: RegistrationTableProps) => {
-  const data = Object.keys(registrations).map((key) => registrations[key]);
-
-  const filtered = data.filter((registration) => {
-    const { success } = summarize(registration.transactions);
-    return success > 0;
-  });
-
+const RegistrationTable = ({
+  registrations,
+  totalRegistrations,
+  filteredRegistrations,
+}: RegistrationTableProps) => {
   return (
-    <Table className="text-sm">
-      <TableCaption>
-        {filtered.length} of {data.length}
-      </TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Name</TableHead>
-          <TableHead>Email</TableHead>
-          <TableHead>College</TableHead>
-          <TableHead>State</TableHead>
-          <TableHead>Designation</TableHead>
-          <TableHead>Workshop</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody className="">
-        {filtered.map((registration) => (
-          <RegistrationTableRow
-            key={registration.profile.userId}
-            registration={registration}
-          />
-        ))}
-      </TableBody>
-    </Table>
+    <div className="border rounded shadow">
+      <Table className="text-sm">
+        <TableCaption>
+          {filteredRegistrations} of {totalRegistrations}
+        </TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Name</TableHead>
+            <TableHead>Email</TableHead>
+            <TableHead>College</TableHead>
+            <TableHead>State</TableHead>
+            <TableHead>Designation</TableHead>
+            <TableHead>Workshop</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody className="">
+          {registrations.map((registration) => (
+            <RegistrationTableRow
+              key={registration.profile.userId}
+              registration={registration}
+            />
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 };
 

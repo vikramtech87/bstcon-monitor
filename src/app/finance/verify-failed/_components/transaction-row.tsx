@@ -37,7 +37,8 @@ export const TransactionRow = ({
 
   const isSuccess = resultActual === "PAID";
   const cancelInitiation =
-    transactionStatus === "INITIATED" && statusActual === "ERROR";
+    transactionStatus === "INITIATED" &&
+    (statusActual === "ERROR" || resultActual === "FAILURE");
 
   const requireAction = isSuccess || cancelInitiation;
   const rowClasses = clsx({
