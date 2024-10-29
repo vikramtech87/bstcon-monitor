@@ -25,20 +25,6 @@ const RegistrationTableRow = ({ registration }: RegistrationTableRowProps) => {
     }
   };
 
-  const mealPref = () => {
-    if (meal === undefined) {
-      return "Not available";
-    }
-    switch (meal) {
-      case "non-veg":
-        return "";
-      case "veg":
-        return "V";
-      default:
-        "Not available";
-    }
-  };
-
   return (
     <TableRow>
       <TableCell>{name}</TableCell>
