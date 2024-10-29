@@ -36,6 +36,11 @@ function reducer(
         ...state,
         designation: action.data,
       };
+    case "mealChanged":
+      return {
+        ...state,
+        meal: action.data,
+      };
     case "reset":
       return initialFilter;
     default:
@@ -52,7 +57,7 @@ const RegistrationTableContainer = ({
 }: RegistrationContainerProps) => {
   const [state, dispatch] = useReducer(reducer, initialFilter);
 
-  const { nameEmail, designation, workshop } = state;
+  const { nameEmail, designation, workshop, meal } = state;
 
   const converted = JSON.parse(registrations) as Record<
     string,
@@ -95,13 +100,20 @@ const RegistrationTableContainer = ({
     return true;
   });
 
+  const mealFiltered = designationFiltered.filter((registration) => {
+    if (meal !== undefined) {
+      return registration.meal === meal;
+    }
+    return true;
+  });
+
   return (
     <div className="flex flex-col space-y-4">
       <RegistrationsFilter state={state} dispatch={dispatch} />
       <RegistrationTable
-        registrations={designationFiltered}
+        registrations={mealFiltered}
         totalRegistrations={successFiltered.length}
-        filteredRegistrations={designationFiltered.length}
+        filteredRegistrations={mealFiltered.length}
       />
     </div>
   );

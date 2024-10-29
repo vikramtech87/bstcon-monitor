@@ -1,5 +1,6 @@
 import { TableCell, TableRow } from "@/components/ui/table";
 import { RegistrationData } from "@/lib/types/registration-data";
+import { Carrot, Drumstick } from "lucide-react";
 import React from "react";
 
 type RegistrationTableRowProps = {
@@ -7,7 +8,7 @@ type RegistrationTableRowProps = {
 };
 
 const RegistrationTableRow = ({ registration }: RegistrationTableRowProps) => {
-  const { profile } = registration;
+  const { profile, meal } = registration;
   const { firstName, lastName, email, college, designation, state, title } =
     profile;
   const name = `${title} ${firstName} ${lastName}`;
@@ -24,6 +25,20 @@ const RegistrationTableRow = ({ registration }: RegistrationTableRowProps) => {
     }
   };
 
+  const mealPref = () => {
+    if (meal === undefined) {
+      return "Not available";
+    }
+    switch (meal) {
+      case "non-veg":
+        return "";
+      case "veg":
+        return "V";
+      default:
+        "Not available";
+    }
+  };
+
   return (
     <TableRow>
       <TableCell>{name}</TableCell>
@@ -31,6 +46,13 @@ const RegistrationTableRow = ({ registration }: RegistrationTableRowProps) => {
       <TableCell>{college}</TableCell>
       <TableCell>{state}</TableCell>
       <TableCell>{desig}</TableCell>
+      <TableCell>
+        {meal === "veg" ? (
+          <Carrot className="text-green-500" />
+        ) : (
+          <Drumstick className="text-amber-500" />
+        )}
+      </TableCell>
       <TableCell>{workshop()}</TableCell>
     </TableRow>
   );
