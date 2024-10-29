@@ -4,6 +4,7 @@ export type RegistrationsFilter = {
   readonly nameEmail: string;
   readonly workshop?: RegistrationData["workshop"];
   readonly designation?: RegistrationData["profile"]["designation"];
+  readonly meal?: RegistrationData["meal"];
 };
 
 export type RegistrationsFilterActions =
@@ -18,6 +19,10 @@ export type RegistrationsFilterActions =
   | {
       readonly action: "designationChanged";
       readonly data?: RegistrationData["profile"]["designation"];
+    }
+  | {
+      readonly action: "mealChanged";
+      readonly data?: RegistrationData["meal"];
     }
   | {
       readonly action: "reset";

@@ -33,6 +33,7 @@ const RegistrationTable = ({
             <TableHead>College</TableHead>
             <TableHead>State</TableHead>
             <TableHead>Designation</TableHead>
+            <TableHead>Meal</TableHead>
             <TableHead>Workshop</TableHead>
           </TableRow>
         </TableHeader>

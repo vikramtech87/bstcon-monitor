@@ -72,6 +72,24 @@ const RegistrationsFilter = ({ state, dispatch }: RegistrationsFilterProps) => {
         </SelectContent>
       </Select>
 
+      <Select
+        value={state.meal}
+        onValueChange={(newValue) =>
+          dispatch({
+            action: "mealChanged",
+            data: newValue as RegistrationData["meal"],
+          })
+        }
+      >
+        <SelectTrigger>
+          <SelectValue placeholder="Meal" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="veg">Veg</SelectItem>
+          <SelectItem value="non-veg">Non-veg</SelectItem>
+        </SelectContent>
+      </Select>
+
       <Button onClick={() => dispatch({ action: "reset" })}>Reset</Button>
     </div>
   );
